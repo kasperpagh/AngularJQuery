@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body ng-app="myApp" ng-controller="Controller as ctrl">
+        <script>
+                    var app = angular.module("myApp", []);
+                    app.controller('Controller', ['$scope', "$http", function ($scope, $http)
+                        {
+
+                            $http.get("api/member").then(function (response)
+                            {
+                                console.log(response.data[1]);
+                                $scope.mems = [];
+                                $scope.mems = response.data;
+                                $scope.heads = Object.keys($scope.mems[1]);
+
+
+                                console.log();
+                            });
+
+                        }]);
+        </script>
+        <div>
+            <div>
+                <table class="table table-striped" style="width: 80%">
+                    <tr>
+                        <th ng-repeat="x in heads">{{x}}</th>
+                    </tr>
+                    <tr ng-repeat="y in mems">
+                        <td>{{y.id}}</td>
+                        <td>{{y.age}}</td>
+                        <td>{{y.eyeColor}}</td>
+                        <td>{{y.name}}</td>
+                        <td>{{y.email}}</td>
+                        <td>
+                            <ul  ng-repeat="z in y.friends">
+                                <li>name: {{z.name}}</li>
+                                <li>id: {{z.id}}</li>
+                                <li>age: {{z.age}}</li>
+                                <li>eye Color: {{z.eyeColor}}</li>
+                                
+                                <li>email: {{z.email}}</li>
+                           
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <a href='index.html'>Back</a>
+        </div>
+
+    </body>
+</html>

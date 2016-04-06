@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div id="main"></div>
+        <a href='index.html'>Back</a>
+
+
+        <script>
+            $(document).ready(function ()
+            {
+                $.get("api/member", function (data)
+                {
+                    var layout  = "class=\"table table-striped\"";
+                    
+                    var htmlString = "<table "+layout+"><tr><th>age</th> <th>eye color</th> <th>name</th> <th>email</th><th>id</th><th>friends</th></tr>";
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        htmlString = htmlString.concat("<tr> <td>" + data[i].age + "</td> <td>" + data[i].eyeColor + "</td> <td>" + data[i].name + "</td> <td>" + data[i].email + "</td> <td>" + data[i].id + "</td> <td>" + john(data[i].friends) + "</td> </tr>");
+                    }
+                    htmlString = htmlString.concat("</table>");
+                    console.log(htmlString);
+                    $("#main").html(htmlString);
+                });
+
+                var john = function (friends)
+                {
+                    var add = "";
+                    for (var i = 0; i < friends.length; i++)
+                    {
+                        var jimmy = "<li>" + friends[i].name + "</li>" + "<li>" + friends[i].id + "</li>" + "<li>" + friends[i].age + "</li>" + "<li>" + friends[i].eyeColor + "</li>" + "<li>" + friends[i].email + "</li>";
+                        add = add.concat(jimmy);
+                    }
+
+                    return "<ul>" + add + "</ul>";
+                };
+            });
+        </script>
+    </body>
+</html>
